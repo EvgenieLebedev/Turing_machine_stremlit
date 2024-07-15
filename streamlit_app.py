@@ -91,12 +91,12 @@ def main():
         tape_display = ""
         for i, symbol in enumerate(tm.tape):
             if i == tm.get_head_position():
-                tape_display += f"<b style='color:red;'>{symbol}</b>"
+                tape_display += f"<span style='font-size: 30px; color: red;'>{symbol}</span>"
             else:
-                tape_display += symbol
+                tape_display += f"<span style='font-size: 30px; color: black;'>{symbol}</span>"
         tape_display_element = st.empty()
 
-        tape_display_element.write(f"Tape: {tape_display}", unsafe_allow_html=True)
+        tape_display_element.write(f"Лента: {tape_display}", unsafe_allow_html=True)
         st.write(f"Состяние: {tm.current_state}")
         st.write(f"Позиция головки чтения/записи: {tm.get_head_position()}")
 
@@ -113,16 +113,26 @@ def main():
             tape_display = ""
             for i, symbol in enumerate(tm.tape):
                 if i == tm.get_head_position():
-                    tape_display += f"<b style='color:red;'>{symbol}</b>"
+                    tape_display += f"<span style='font-size: 30px; color: red;'>{symbol}</span>"
                 else:
-                    tape_display += symbol
+                    tape_display += f"<span style='font-size: 30px; color: black;'>{symbol}</span>"
+            tape_display_element = st.empty()
             tape_display_element.empty()  
-            tape_display_element.write(f"Tape: {tape_display}", unsafe_allow_html=True)  # Записываем новую ленту
+            tape_display_element.write(f"Лента: {tape_display}", unsafe_allow_html=True)  # Записываем новую ленту
             st.session_state['tm'] = tm
 
     # Интерфейс Streamlit
     st.title('Машина Тьюринга')
-    st.write('Редактирование таблицы функции переходов')
+    st.markdown("""
+    Машина Тьюринга — это абстрактная машина (автомат), работающая с лентой отдельных ячеек, в которых записаны символы.
+    Она состоит из трех частей:
+    - лента
+    - головка
+    - управляющее устройство (УУ)
+
+    На каждом шаге машина считывает символ из ячейки, на которую указывает головка, и, на основе считанного символа и внутреннего состояния, делает следующий шаг. При этом машина может изменить свое состояние, записать другой символ в ячейку или передвинуть головку на одну ячейку вправо или влево.
+    """)
+
 
     if 'tm' not in st.session_state:
         st.session_state['initial_tape'] = '000000'
