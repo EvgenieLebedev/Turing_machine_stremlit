@@ -116,7 +116,6 @@ def main():
                     tape_display += f"<span style='font-size: 30px; color: red;'>{symbol}</span>"
                 else:
                     tape_display += f"<span style='font-size: 30px; color: black;'>{symbol}</span>"
-            tape_display_element = st.empty()
             tape_display_element.empty()  
             tape_display_element.write(f"Лента: {tape_display}", unsafe_allow_html=True)  # Записываем новую ленту
             st.session_state['tm'] = tm
